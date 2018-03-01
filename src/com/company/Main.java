@@ -23,6 +23,13 @@ public class Main {
         ArrayList<Car> cars = new ArrayList<>();
 
         String line = "";
+        readSettingsFile(R, C, rides, cars);
+        System.out.println("Test");
+    }
+
+    private static void readSettingsFile(int r, int c, ArrayList<Ride> rides, ArrayList<Car> cars) {
+        String line;
+        int steps;
         int lineNumber = 1;
         try {
             BufferedReader bfr = new BufferedReader(new FileReader("settings_file"));
@@ -31,8 +38,8 @@ public class Main {
                 System.out.println(line);
                 if (lineNumber == 1) {
                     String[] splitString = line.split(" ");
-                    R = Integer.valueOf(splitString[0]);
-                    C = Integer.valueOf(splitString[1]);
+                    r = Integer.valueOf(splitString[0]);
+                    c = Integer.valueOf(splitString[1]);
                     int carsNumber = Integer.valueOf(splitString[2]);
                     int rideNumber = Integer.valueOf(splitString[3]);
                     steps = Integer.valueOf(splitString[5]);
@@ -50,13 +57,13 @@ public class Main {
                                     new Intersection(
                                             Integer.valueOf(splitStringRide[0]),
                                             Integer.valueOf(splitStringRide[1]),
-                                            R,
-                                            C),
+                                            r,
+                                            c),
                                     new Intersection(
                                             Integer.valueOf(splitStringRide[2]),
                                             Integer.valueOf(splitStringRide[3]),
-                                            R,
-                                            C),
+                                            r,
+                                            c),
                                     Integer.valueOf(splitStringRide[4]),
                                     Integer.valueOf(splitStringRide[5])
                                     )
@@ -68,6 +75,5 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Test");
     }
 }
