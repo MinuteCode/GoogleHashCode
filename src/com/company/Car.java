@@ -4,6 +4,7 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Car {
     int id;
@@ -25,7 +26,11 @@ public class Car {
 
     public void setRide(Ride ride) {
         this.ride = ride;
-        this.isReachedStart = (this.currentPosition.equals(this.getRide().getStartIntersection().position));
+        if(ride != null) {
+            this.isReachedStart = (this.currentPosition.equals(this.getRide().getStartIntersection().position));
+        }
+        else
+            this.isReachedStart = false;
     }
 
     public void moveUp(int distance, int r){
@@ -79,10 +84,14 @@ public class Car {
                     } else if (this.getRide().getFinishIntersection().position.getValue() < this.currentPosition.getValue()) {
                         this.moveRight(-1, c);
                     }
+                    if(this.currentPosition.equals(this.getRide().getFinishIntersection().position)){
+                        this.setRide(null);
+                    }
                 }
             }
         }
     }
+
     @Override
     public String toString() {
         return "Car " + this.id + " is at position (" + this.currentPosition.getKey() + ", " + this.currentPosition.getValue() + "). ReachedStart : " + this.isReachedStart;

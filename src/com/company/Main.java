@@ -10,6 +10,8 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class Main {
@@ -70,12 +72,29 @@ public class Main {
         }
 
         cars.get(0).setRide(rides.get(0));
+        rides.sort(new Comparator<Ride>() {
+            @Override
+            public int compare(Ride o1, Ride o2) {
+                return (o2.getEarliestStart() - o1.getEarliestStart());
+            }
+        });
 
         for (int i = 0; i < steps ; i++) {
-            for(Car myCar : cars){
-                myCar.moveNextPosition(i, R, C);
-                System.out.println(myCar.toString());
+            for (Car car : cars) {
+                if(car.getRide() == null && !rides.isEmpty()) {
+                    Ride ride = rides.get(0);
+                    System.out.println("this vehicule " + car.id + " is assigned " + ride.getId());
+                    car.setRide(ride);
+                    rides.remove(ride);
+                }
+                else if(rides.isEmpty()){
+                    System.out.println("All rides have been realised.");
+                }
+
+                car.moveNextPosition(i, R, C);
+                System.out.println(car.toString());
             }
+
         }
     }
 }
