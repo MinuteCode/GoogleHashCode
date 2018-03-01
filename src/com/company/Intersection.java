@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Intersection {
 
     Pair<Integer, Integer> position;
-ArrayList<Pair<Integer,Integer>> neighbors = new ArrayList<>();
+    ArrayList<Pair<Integer,Integer>> neighbors = new ArrayList<>();
 
     public Intersection(Pair<Integer, Integer> position, ArrayList<Pair<Integer, Integer>> neighbors) {
         this.position = position;

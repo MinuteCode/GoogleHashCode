@@ -12,6 +12,18 @@ public class Main {
         int R = 2;
         int C = 4;
 
+        Car car = new Car(1, 0, 0);
+        System.out.println(car.toString());
+        car.moveRight(1, C);
+        System.out.println(car.toString());
+        car.moveUp(1, R);
+        car.moveUp(1, R);
+        car.moveUp(1, R);
+        car.moveUp(1, R);
+        car.moveUp(1, R);
+        car.moveUp(1, R);
+        System.out.println(car.toString());
+
         ArrayList<Intersection> intersections = new ArrayList<>();
 
         for (int i = 0; i < R; i++) {
