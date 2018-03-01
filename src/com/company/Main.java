@@ -14,8 +14,6 @@ import java.util.HashMap;
 
 public class Main {
 
-
-
     public static void main(String[] args) {
 
         int steps = 0;
@@ -47,22 +45,22 @@ public class Main {
                 } else {
                     if (rides == null)  rides = new ArrayList<>();
                     String[] splitStringRide = line.split(" ");
-                    rides.add(
-                            new Ride(
-                                    new Intersection(
-                                            Integer.valueOf(splitStringRide[0]),
-                                            Integer.valueOf(splitStringRide[1]),
-                                            R,
-                                            C),
-                                    new Intersection(
-                                            Integer.valueOf(splitStringRide[2]),
-                                            Integer.valueOf(splitStringRide[3]),
-                                            R,
-                                            C),
-                                    Integer.valueOf(splitStringRide[4]),
-                                    Integer.valueOf(splitStringRide[5])
-                                    )
+                    Ride ride = new Ride(
+                            new Intersection(
+                                    Integer.valueOf(splitStringRide[0]),
+                                    Integer.valueOf(splitStringRide[1]),
+                                    R,
+                                    C),
+                            new Intersection(
+                                    Integer.valueOf(splitStringRide[2]),
+                                    Integer.valueOf(splitStringRide[3]),
+                                    R,
+                                    C),
+                            Integer.valueOf(splitStringRide[4]),
+                            Integer.valueOf(splitStringRide[5])
                     );
+                    ride.setId(lineNumber - 1);
+                    rides.add(ride);
                 }
                 line = bfr.readLine();
                 lineNumber++;
@@ -75,7 +73,7 @@ public class Main {
 
         for (int i = 0; i < steps ; i++) {
             for(Car myCar : cars){
-                myCar.moveNextPosition(R, C);
+                myCar.moveNextPosition(i, R, C);
                 System.out.println(myCar.toString());
             }
         }
