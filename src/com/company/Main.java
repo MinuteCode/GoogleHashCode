@@ -2,10 +2,7 @@ package com.company;
 
 import javafx.util.Pair;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,6 +20,8 @@ public class Main {
         int C = 4;
         ArrayList<Ride> rides = null;
         ArrayList<Car> cars = new ArrayList<>();
+
+        HashMap<Integer, ArrayList<Integer>> carsRideAssignments = new HashMap<>();
 
         String line = "";
         int lineNumber = 1;
@@ -43,6 +42,7 @@ public class Main {
 
                     for (int i = 0; i < carsNumber; i++) {
                         cars.add(new Car(i,0,0));
+                        carsRideAssignments.put(i, new ArrayList<>());
                     }
                 } else {
                     if (rides == null)  rides = new ArrayList<>();
@@ -85,6 +85,7 @@ public class Main {
                     Ride ride = rides.get(0);
                     System.out.println("this vehicule " + car.id + " is assigned " + ride.getId());
                     car.setRide(ride);
+                    carsRideAssignments.get(car.getId()).add(ride.getId());
                     rides.remove(ride);
                 }
                 else if(rides.isEmpty()){
@@ -94,7 +95,24 @@ public class Main {
                 car.moveNextPosition(i, R, C);
                 System.out.println(car.toString());
             }
+        }
 
+        try {
+            PrintWriter writer = new PrintWriter("output_file", "UTF-8");
+            for (int carId :
+                    carsRideAssignments.keySet()) {
+
+
+                    String line2 = "" + carId;
+                    for(int rideId : carsRideAssignments.get(carId)) {
+                        line2 = line2 + " " + rideId;
+                    }
+                    writer.println(line2);
+
+            }
+            writer.close();
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -92,6 +92,14 @@ public class Car {
         }
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Car " + this.id + " is at position (" + this.currentPosition.getKey() + ", " + this.currentPosition.getValue() + "). ReachedStart : " + this.isReachedStart;
