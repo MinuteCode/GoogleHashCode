@@ -14,6 +14,8 @@ import java.util.HashMap;
 
 public class Main {
 
+
+
     public static void main(String[] args) {
 
         int steps = 0;
@@ -68,6 +70,14 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Test");
+
+        cars.get(0).setRide(rides.get(0));
+
+        for (int i = 0; i < steps ; i++) {
+            for(Car myCar : cars){
+                myCar.moveNextPosition(R, C);
+                System.out.println(myCar.toString());
+            }
+        }
     }
 }

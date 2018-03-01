@@ -12,6 +12,8 @@ public class Car {
 
     Ride ride;
 
+    boolean isReachedStart = false;
+
     public Car(int id, int r, int c) {
         this.id = id;
         this.currentPosition = new Pair<>(r, c);
@@ -23,6 +25,7 @@ public class Car {
 
     public void setRide(Ride ride) {
         this.ride = ride;
+        this.isReachedStart = (this.currentPosition.equals(this.getRide().getStartIntersection().position));
     }
 
     public void moveUp(int distance, int r){
@@ -49,8 +52,39 @@ public class Car {
         this.currentPosition = newPosition;
     }
 
+    public void moveNextPosition(int step, int r, int c){
+        if(this.getRide() != null){
+
+            if(step >= this.getRide().getEarliestStart()) {
+                if (!this.isReachedStart) {
+                    if (this.getRide().getStartIntersection().position.getKey() > this.currentPosition.getKey()) {
+                        this.moveUp(1, r);
+                    } else if (this.getRide().getStartIntersection().position.getKey() < this.currentPosition.getKey()) {
+                        this.moveUp(-1, r);
+                    } else if (this.getRide().getStartIntersection().position.getValue() > this.currentPosition.getValue()) {
+                        this.moveRight(1, c);
+                    } else if (this.getRide().getStartIntersection().position.getValue() < this.currentPosition.getValue()) {
+                        this.moveRight(-1, c);
+                    }
+
+                    this.isReachedStart = (this.currentPosition.equals(this.getRide().getStartIntersection().position));
+                } else {
+
+                    if (this.getRide().getFinishIntersection().position.getKey() > this.currentPosition.getKey()) {
+                        this.moveUp(1, r);
+                    } else if (this.getRide().getFinishIntersection().position.getKey() < this.currentPosition.getKey()) {
+                        this.moveUp(-1, r);
+                    } else if (this.getRide().getFinishIntersection().position.getValue() > this.currentPosition.getValue()) {
+                        this.moveRight(1, c);
+                    } else if (this.getRide().getFinishIntersection().position.getValue() < this.currentPosition.getValue()) {
+                        this.moveRight(-1, c);
+                    }
+                }
+            }
+        }
+    }
     @Override
     public String toString() {
-        return "Car " + this.id + " is at position (" + this.currentPosition.getKey() + ", " + this.currentPosition.getValue() + ")";
+        return "Car " + this.id + " is at position (" + this.currentPosition.getKey() + ", " + this.currentPosition.getValue() + "). ReachedStart : " + this.isReachedStart;
     }
 }
